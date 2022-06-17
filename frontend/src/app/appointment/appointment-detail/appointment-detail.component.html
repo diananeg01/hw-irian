@@ -1,0 +1,55 @@
+<detail-bar></detail-bar>
+
+<form (ngSubmit)="onSubmit()">
+  <h5>Animal Name:</h5>
+  <div class="field col-12 md:col-4">
+  <span class="p-float-label">
+    <input type="text" id="animalName" pInputText [(ngModel)]="appointment.animalName" [ngModelOptions]="{standalone: true}">
+    <label for="animalName">{{appointment.animalName}}</label>
+  </span>
+  </div>
+  <h5>Doctor:</h5>
+  <div class="field col-12 md:col-4">
+  <span class="p-float-label">
+    <input type="text" id="doctorName" pInputText [(ngModel)]="appointment.doctorName" [ngModelOptions]="{standalone: true}">
+    <label for="doctorName">{{appointment.doctorName}}</label>
+  </span>
+  </div>
+  <h5>Date and Time:</h5>
+  <div class="field col-12 md:col-4">
+    <label for="days">{{appointment.dateTime}}</label>
+    <p-calendar [(ngModel)]="appointment.dateTime" [ngModelOptions]="{standalone: true}" [showTime]="true" [readonlyInput]="true" id="days"></p-calendar>
+  </div>
+  <!--<ng-template [value]="serviceTypes" let-serviceType>-->
+  <!--  <p-checkbox name="group2" value="category" [value]="serviceType"  [(ngModel)]="appointment.serviceTypes" [id]="serviceType.id"></p-checkbox>-->
+  <!--  <label [for]="serviceType.id">{{serviceType.name}} ({{serviceType.price}} RON)</label>-->
+  <!--</ng-template>-->
+  <h5>Service types:</h5>
+  <div *ngFor="let serviceType of serviceTypes" class="p-field-checkbox">
+    <p-checkbox name="group2" value="category" [value]="serviceType" [(ngModel)]="appointment.serviceTypes" [ngModelOptions]="{standalone: true}" [id]="serviceType.id"></p-checkbox>
+    <label [for]="serviceType.id">{{serviceType.name}} ({{serviceType.price}} RON)</label>
+  </div>
+  <h5>Diagnostic:</h5>
+  <div class="p-field p-col-12">
+    <span class="p-float-label">
+      <textarea id="textarea" rows="3" cols="30" [(ngModel)]="appointment.diagnostic" [ngModelOptions]="{standalone: true}" pInputTextarea></textarea>
+      <label for="textarea">{{appointment.diagnostic}}</label>
+    </span>
+  </div>
+  <h5>Status:</h5>
+  <div class="p-field-radiobutton">
+    <p-radioButton name="status" value="CREATED" [(ngModel)]="statuses" [ngModelOptions]="{standalone: true}" id="created"></p-radioButton>
+    <label for="created">CREATED</label>
+  </div>
+  <div class="p-field-radiobutton">
+    <p-radioButton name="status" value="CONFIRMED" [(ngModel)]="statuses" [ngModelOptions]="{standalone: true}" id="confirmed"></p-radioButton>
+    <label for="confirmed">CONFIRMED</label>
+  </div>
+  <div class="p-field-radiobutton">
+    <p-radioButton name="status" value="FINISHED" [(ngModel)]="statuses" [ngModelOptions]="{standalone: true}" id="finished"
+    [disabled]='appointment.diagnostic === ""'></p-radioButton>
+    <label for="finished">FINISHED</label>
+  </div>
+  <br>
+  <p-button label="Submit" type="submit" icon="pi pi-check"></p-button>
+</form>

@@ -1,0 +1,37 @@
+<detail-bar></detail-bar>
+
+<form (ngSubmit)="onSubmit()">
+  <h5>Animal Name:</h5>
+  <div class="field col-12 md:col-4">
+  <span class="p-float-label">
+    <input type="text" id="animalName" pInputText [(ngModel)]="appointment.animalName" [ngModelOptions]="{standalone: true}">
+    <label for="animalName">Animal Name</label>
+  </span>
+  </div>
+  <h5>Doctor:</h5>
+  <div class="field col-12 md:col-4">
+  <span class="p-float-label">
+    <input type="text" id="doctorName" pInputText [(ngModel)]="appointment.doctorName" [ngModelOptions]="{standalone: true}">
+    <label for="doctorName">Doctor</label>
+  </span>
+  </div>
+  <h5>Date and time:</h5>
+  <div class="field col-12 md:col-4">
+    <p-calendar [(ngModel)]="appointment.dateTime" [ngModelOptions]="{standalone: true}" [disabledDates]="invalidDates" [disabledDays]="[0,6]"
+                [readonlyInput]="true" [showTime]="true" id="disabledays"></p-calendar>
+  </div>
+  <!--<ng-template [value]="serviceTypes" let-serviceType>-->
+  <!--  <p-checkbox name="group2" value="category" [value]="serviceType"  [(ngModel)]="appointment.serviceTypes" [id]="serviceType.id"></p-checkbox>-->
+  <!--  <label [for]="serviceType.id">{{serviceType.name}} ({{serviceType.price}} RON)</label>-->
+  <!--</ng-template>-->
+  <h5>Service Types:</h5>
+  <div *ngFor="let serviceType of serviceTypes" class="p-field-checkbox">
+    <p-checkbox name="group2" value="category" [value]="serviceType"  [(ngModel)]="appointment.serviceTypes" [ngModelOptions]="{standalone: true}" [id]="serviceType.id"></p-checkbox>
+    <label [for]="serviceType.id">{{serviceType.name}} ({{serviceType.price}} RON)</label>
+  </div>
+  <br>
+  <p-toast></p-toast>
+  <button type="button" (click)="onShow()" pButton icon="pi pi-plus" label="New Service Type"></button>
+  <br><br>
+  <p-button label="Submit" type="submit" icon="pi pi-check"></p-button>
+</form>
